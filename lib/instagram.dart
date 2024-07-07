@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,8 +9,10 @@ import 'package:iconify_flutter/icons/cil.dart';
 import 'package:iconify_flutter/icons/ic.dart';
 
 import 'package:iconify_flutter/icons/mdi.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:login/profile.dart';
+
+import 'api/productList.dart';
 
 class Instagram extends StatefulWidget {
   const Instagram({super.key});
@@ -24,6 +28,12 @@ class _InstagramState extends State<Instagram> with TickerProviderStateMixin {
     Iconify(Mdi.movie_play_outline),
     Iconify(Ic.round_person_outline)
   ];
+
+  Future<List<ListApi>> fetch() async {
+    var res = await http.get(Uri.parse("https://fakestoreapi.com/products"));
+    var data = jsonDecode(res.body);
+    return (data as List).map((e) => ListApi.fromJson(e)).toList();
+  }
   @override
   void initState() {
     _controller =

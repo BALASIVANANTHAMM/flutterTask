@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:login/Tabbar.dart';
 
 import 'bottom.dart';
 
@@ -100,7 +101,7 @@ class _ValidateState extends State<Validate> {
                                   controller: ctrl,
                                   keyboardType: TextInputType.name,
 
-                                  // validator: validateName,
+                                  validator: validateName,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8)
@@ -219,9 +220,9 @@ class _ValidateState extends State<Validate> {
                                         }else{
                                           return null;
                                         }
-                                        Navigator.push(
+                                        Navigator.pushReplacement(
                                           context,
-                                          MaterialPageRoute(builder: (context) => const Bottom()),
+                                          MaterialPageRoute(builder: (context) => const tabBar()),
                                         );
                                       },
                                       child: Padding(
@@ -269,7 +270,7 @@ class _ValidateState extends State<Validate> {
     return null;
   }
   String? validatePassword(String? password){
-    if(password==null || password.isEmpty){
+    if(password==null || password.isEmpty || password.length<7){
       return 'Password Not Valid';
     }
     return null;
